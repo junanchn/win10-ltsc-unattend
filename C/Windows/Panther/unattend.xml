@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+
+  <settings pass="windowsPE">
+
+    <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <InputLocale>zh-cn</InputLocale>
+      <SystemLocale>zh-cn</SystemLocale>
+      <UILanguage>zh-cn</UILanguage>
+      <UserLocale>zh-cn</UserLocale>
+    </component>
+
+    <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <UserData>
+        <AcceptEula>true</AcceptEula>
+      </UserData>
+
+      <DiskConfiguration>
+        <WillShowUI>OnError</WillShowUI>
+        <Disk>
+          <DiskID>0</DiskID>
+          <WillWipeDisk>true</WillWipeDisk>
+          <CreatePartitions>
+            <!-- EFI 系统分区 -->
+            <CreatePartition wcm:action="add">
+              <Order>1</Order>
+              <Type>EFI</Type>
+              <Size>200</Size>
+            </CreatePartition>
+            <!-- MSR 分区 -->
+            <CreatePartition wcm:action="add">
+              <Order>2</Order>
+              <Type>MSR</Type>
+              <Size>128</Size>
+            </CreatePartition>
+            <!-- 系统分区（占满剩余空间） -->
+            <CreatePartition wcm:action="add">
+              <Order>3</Order>
+              <Type>Primary</Type>
+              <Extend>true</Extend>
+            </CreatePartition>
+          </CreatePartitions>
+        </Disk>
+      </DiskConfiguration>
+
+      <ImageInstall>
+        <OSImage>
+          <InstallFrom>
+            <MetaData wcm:action="add">
+              <Key>/IMAGE/NAME</Key>
+              <Value>Windows 10 Enterprise LTSC 2021</Value>
+            </MetaData>
+          </InstallFrom>
+          <InstallTo>
+            <DiskID>0</DiskID>
+            <PartitionID>3</PartitionID>
+          </InstallTo>
+          <WillShowUI>OnError</WillShowUI>
+          <InstallToAvailablePartition>false</InstallToAvailablePartition>
+        </OSImage>
+      </ImageInstall>
+    </component>
+
+  </settings>
+
+  <settings pass="specialize">
+
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <ComputerName>WIN10VM</ComputerName>
+    </component>
+
+    <component name="Microsoft-Windows-Security-Licensing-SLC-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <SkipAutoActivation>true</SkipAutoActivation>
+    </component>
+
+  </settings>
+
+  <settings pass="oobeSystem">
+
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+
+      <!-- Administrator 账户：空密码、自动登录 -->
+      <UserAccounts>
+        <AdministratorPassword>
+          <Value/>
+          <PlainText>true</PlainText>
+        </AdministratorPassword>
+      </UserAccounts>
+
+      <AutoLogon>
+        <Password>
+          <Value/>
+          <PlainText>true</PlainText>
+        </Password>
+        <Enabled>true</Enabled>
+        <LogonCount>1</LogonCount>
+        <Username>Administrator</Username>
+      </AutoLogon>
+
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <SkipMachineOOBE>true</SkipMachineOOBE>
+        <SkipUserOOBE>true</SkipUserOOBE>
+        <NetworkLocation>Work</NetworkLocation>
+        <ProtectYourPC>3</ProtectYourPC>
+      </OOBE>
+
+      <FirstLogonCommands>
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd /c C:\Windows\Panther\optimize.cmd</CommandLine>
+          <Description>Optimize system</Description>
+          <Order>1</Order>
+        </SynchronousCommand>
+
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd /c C:\Windows\Panther\software.cmd</CommandLine>
+          <Description>Install software</Description>
+          <Order>2</Order>
+        </SynchronousCommand>
+
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd /c C:\Windows\Panther\MAS_AIO.cmd /Z-Windows</CommandLine>
+          <Description>Activate windows</Description>
+          <Order>3</Order>
+        </SynchronousCommand>
+
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd /c C:\Windows\Panther\cleanup.cmd</CommandLine>
+          <Description>Cleanup system</Description>
+          <Order>4</Order>
+        </SynchronousCommand>
+
+        <SynchronousCommand wcm:action="add">
+          <CommandLine>cmd /c "rd /s /q C:\Windows\Panther"</CommandLine>
+          <Description>Remove setup scripts</Description>
+          <Order>5</Order>
+        </SynchronousCommand>
+      </FirstLogonCommands>
+
+      <TimeZone>China Standard Time</TimeZone>
+
+    </component>
+
+  </settings>
+
+</unattend>
