@@ -10,6 +10,7 @@ setlocal
   echo Cleanup       =1
   echo ResetBase     =1
   echo AutoStart     =1
+  echo AddDrivers    =1
 )
 
 :: Extract ISO
