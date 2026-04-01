@@ -218,6 +218,7 @@ call :CleanDir "C:\Windows\Logs\SIH"
 call :CleanDir "C:\Windows\Logs\NetSetup"
 call :CleanDir "C:\Windows\Logs\MoSetup"
 call :CleanDir "C:\Windows\System32\LogFiles\setupcln"
+call :RmDir "C:\Windows\Panther"
 echo.
 
 echo --- Event Logs ---

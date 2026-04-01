@@ -77,6 +77,13 @@
 
   <settings pass="oobeSystem">
 
+    <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <InputLocale>zh-cn</InputLocale>
+      <SystemLocale>zh-cn</SystemLocale>
+      <UILanguage>zh-cn</UILanguage>
+      <UserLocale>zh-cn</UserLocale>
+    </component>
+
     <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
 
       <!-- Administrator 账户：空密码、自动登录 -->
@@ -108,33 +115,27 @@
 
       <FirstLogonCommands>
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd /c C:\Windows\Panther\optimize.cmd</CommandLine>
+          <CommandLine>cmd /c C:\OEM\optimize.cmd</CommandLine>
           <Description>Optimize system</Description>
           <Order>1</Order>
         </SynchronousCommand>
 
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd /c C:\Windows\Panther\software.cmd</CommandLine>
+          <CommandLine>cmd /c C:\OEM\software.cmd</CommandLine>
           <Description>Install software</Description>
           <Order>2</Order>
         </SynchronousCommand>
 
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd /c C:\Windows\Panther\MAS_AIO.cmd /Z-Windows</CommandLine>
-          <Description>Activate windows</Description>
+          <CommandLine>cmd /c C:\OEM\cleanup.cmd</CommandLine>
+          <Description>Cleanup system</Description>
           <Order>3</Order>
         </SynchronousCommand>
 
         <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd /c C:\Windows\Panther\cleanup.cmd</CommandLine>
-          <Description>Cleanup system</Description>
+          <CommandLine>cmd /c "rd /s /q C:\OEM"</CommandLine>
+          <Description>Remove C:\OEM</Description>
           <Order>4</Order>
-        </SynchronousCommand>
-
-        <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd /c "rd /s /q C:\Windows\Panther"</CommandLine>
-          <Description>Remove setup scripts</Description>
-          <Order>5</Order>
         </SynchronousCommand>
       </FirstLogonCommands>
 
