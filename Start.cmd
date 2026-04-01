@@ -16,6 +16,9 @@ setlocal
 "C:\Program Files\7-Zip\7z.exe" x "%~dp0Windows 10 Enterprise LTSC 2021.iso" -o"%~dp0ISO" -y
 @if %ERRORLEVEL% neq 0 (echo Extract failed & pause & exit /b 1)
 
+:: Place autounattend.xml in ISO root
+copy /y "%~dp0C\Windows\Panther\unattend.xml" "%~dp0ISO\autounattend.xml"
+
 :: Run W10UI
 cd /d "%~dp0"
 W10UI.cmd
