@@ -61,7 +61,7 @@ sc config BITS start= disabled
 sc stop BITS
 sc config wuauserv start= disabled
 sc stop wuauserv
-sc config UsoSvc start= disabled
+sc config UsoSvc start= demand
 sc stop UsoSvc
 
 :: 禁用 Windows 更新医生服务
