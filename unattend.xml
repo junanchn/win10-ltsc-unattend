@@ -131,12 +131,6 @@
           <Description>Cleanup system</Description>
           <Order>3</Order>
         </SynchronousCommand>
-
-        <SynchronousCommand wcm:action="add">
-          <CommandLine>cmd /c "rd /s /q C:\OEM"</CommandLine>
-          <Description>Remove C:\OEM</Description>
-          <Order>4</Order>
-        </SynchronousCommand>
       </FirstLogonCommands>
 
       <TimeZone>China Standard Time</TimeZone>

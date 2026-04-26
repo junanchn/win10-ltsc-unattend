@@ -18,7 +18,7 @@ setlocal
 @if %ERRORLEVEL% neq 0 (echo Extract failed & pause & exit /b 1)
 
 :: Place autounattend.xml in ISO root
-copy /y "%~dp0C\Windows\Panther\unattend.xml" "%~dp0ISO\autounattend.xml"
+copy /y "%~dp0unattend.xml" "%~dp0ISO\autounattend.xml"
 
 :: Run W10UI
 cd /d "%~dp0"
