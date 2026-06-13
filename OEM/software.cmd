@@ -10,7 +10,8 @@ cmd /c C:\OEM\MAS_AIO.cmd /Z-Windows
 python-3.12.10-amd64.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
 
 :: Install voidImageViewer
-voidImageViewer-1.0.0.15.x64.en-US-Setup.exe /S
+voidImageViewer-1.0.0.15.x64.en-US-Setup.exe /S /install-options "/noappdata /nostartmenu"
+copy /y "%~dp0voidImageViewer.ini" "%ProgramFiles%\voidImageViewer\voidImageViewer.ini"
 
 :: Install Edge
 start /wait msiexec /i "MicrosoftEdgeEnterpriseX64.msi" /qn /norestart DONOTCREATEDESKTOPSHORTCUT=true DONOTCREATETASKBARSHORTCUT=true
