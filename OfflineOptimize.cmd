@@ -57,7 +57,6 @@ reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\edgeupdate" /v Start /t REG_
 reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\edgeupdatem" /v Start /t REG_DWORD /d 4 /f >nul
 
 :: ---- 禁用微软商店相关服务 ----
-reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\LicenseManager" /v Start /t REG_DWORD /d 4 /f >nul
 reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\PushToInstall" /v Start /t REG_DWORD /d 4 /f >nul
 
 :: ---- 禁用 Xbox 相关服务 ----
