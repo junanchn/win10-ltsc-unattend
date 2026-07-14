@@ -27,6 +27,6 @@ copy /y "%~dp0unattend.xml" "%~dp0ISO\autounattend.xml"
 
 :: Run W10UI
 cd /d "%~dp0"
-W10UI.cmd
+call W10UI.cmd
 
 pause
