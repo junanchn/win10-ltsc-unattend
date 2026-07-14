@@ -1,5 +1,10 @@
 cd /d "%~dp0"
 
+:: VMware Tools
+if exist "%~dp0VMwareTools\setup.exe" (
+    start /wait VMwareTools\setup.exe /S /v "/qn REBOOT=R"
+)
+
 :: Activate Windows
 cmd /c C:\OEM\MAS_AIO.cmd /Z-Windows
 

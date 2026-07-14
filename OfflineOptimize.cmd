@@ -110,17 +110,17 @@ reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\sppsvc" /v Start /t REG_DWOR
 :: ---- 禁用路径长度限制 ----
 reg add "HKLM\Offline_SYSTEM\ControlSet001\Control\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f >nul
 
-:: ---- 允许空密码远程登录 (虚拟机用) ----
-if "%VM_MODE%"=="1" reg add "HKLM\Offline_SYSTEM\ControlSet001\Control\Lsa" /v LimitBlankPasswordUse /t REG_DWORD /d 0 /f >nul
-
-:: ---- 禁用无线电管理服务 (虚拟机用) ----
-if "%VM_MODE%"=="1" reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\RmSvc" /v Start /t REG_DWORD /d 4 /f >nul
-
-:: ---- 禁用蓝牙支持服务 (虚拟机用) ----
-if "%VM_MODE%"=="1" reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\bthserv" /v Start /t REG_DWORD /d 4 /f >nul
-
-:: ---- 禁用蓝牙音视频控制协议 (虚拟机用) ----
-if "%VM_MODE%"=="1" reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\BthAvctpSvc" /v Start /t REG_DWORD /d 4 /f >nul
+:: ---- 虚拟机优化 ----
+if "%VM%"=="1" (
+    rem 允许空密码远程登录
+    reg add "HKLM\Offline_SYSTEM\ControlSet001\Control\Lsa" /v LimitBlankPasswordUse /t REG_DWORD /d 0 /f >nul
+    rem 禁用无线电管理服务
+    reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\RmSvc" /v Start /t REG_DWORD /d 4 /f >nul
+    rem 禁用蓝牙支持服务
+    reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\bthserv" /v Start /t REG_DWORD /d 4 /f >nul
+    rem 禁用蓝牙音视频控制协议
+    reg add "HKLM\Offline_SYSTEM\ControlSet001\Services\BthAvctpSvc" /v Start /t REG_DWORD /d 4 /f >nul
+)
 
 reg unload "HKLM\Offline_SYSTEM"
 echo   SYSTEM hive: done.

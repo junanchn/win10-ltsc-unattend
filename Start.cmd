@@ -1,6 +1,11 @@
 @echo off
 setlocal
 
+if /i "%~1"=="vm" (
+    set "VM=1"
+    echo VM optimizations enabled
+)
+
 :: Generate W10UI.ini with absolute paths
 > "%~dp0W10UI.ini" (
   echo [W10UI-Configuration]

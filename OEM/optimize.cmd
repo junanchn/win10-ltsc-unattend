@@ -26,3 +26,18 @@ schtasks /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable
 schtasks /Change /TN "Microsoft\Windows\PI\Sqm-Tasks" /Disable
 schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
 schtasks /Change /TN "Microsoft\Windows\Defrag\ScheduledDefrag" /Disable
+
+:: 虚拟机专用优化
+if exist "%~dp0.vm" (
+    :: 高性能电源方案
+    powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+    :: 关闭显示器超时设为“从不”
+    powercfg /change monitor-timeout-ac 0
+    powercfg /change monitor-timeout-dc 0
+    :: 关闭休眠
+    powercfg /h off
+    :: 启用文件和打印机共享防火墙规则
+    netsh advfirewall firewall set rule group="文件和打印机共享" new enable=yes
+    :: 关闭防火墙
+    netsh advfirewall set allprofiles state off
+)

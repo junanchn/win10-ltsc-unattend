@@ -24,7 +24,7 @@ Start.cmd
 
 ```
 win10-ltsc-unattend/
-├── Start.cmd                    # 入口脚本：解压 ISO → 生成配置 → 启动集成
+├── Start.cmd                    # 入口脚本
 ├── W10UI.cmd                    # W10UI v10.59 离线更新集成工具
 ├── OnWimMounted.cmd             # WIM 挂载回调：注入自定义文件和离线修改
 │
@@ -42,6 +42,7 @@ win10-ltsc-unattend/
 │   ├── software.cmd             # 首次登录：安装 7-Zip/Python/Edge 等
 │   ├── cleanup.cmd              # 首次登录：磁盘清理/日志/隐私/注册表痕迹
 │   └── MAS_AIO.cmd              # Microsoft Activation Scripts v3.10
+├── VMwareTools\                 # Start.cmd vm 时拷入 C:\OEM\
 │
 └── Updates\                     # Windows 更新补丁（.url 下载链接）
     ├── 累积更新 KB5075912
@@ -60,7 +61,7 @@ win10-ltsc-unattend/
 **SYSTEM hive** — 服务启动类型调整：
 - 禁用：SysMain、IPv6 隧道、远程访问、遥测、错误报告、Windows Update、BITS、Windows Search、Edge 更新、Xbox 系列、微软商店、程序兼容性助手等
 - 改为手动：UsoSvc、DPS、OneSyncSvc、CryptSvc、sppsvc
-- 虚拟机专用：允许空密码远程登录、禁用无线电/蓝牙服务
+- 虚拟机优化：允许空密码远程登录、禁用无线电/蓝牙服务
 
 **SOFTWARE hive** — 策略与配置：
 - 关闭系统还原、安全警告、SmartScreen
@@ -96,12 +97,6 @@ win10-ltsc-unattend/
 
 ## 配置选项
 
-### 虚拟机模式
-
-`OnWimMounted.cmd` 中设置 `VM_MODE=1` 时额外执行：
-- 离线：允许空密码远程登录、禁用无线电/蓝牙服务
-- 首次登录：切换到高性能电源方案、关闭休眠、关闭防火墙、静默安装 VMware Tools
-
 ### unattend.xml 配置
 
 - 分区方案：GPT（200MB EFI + 128MB MSR + 剩余空间系统分区）
@@ -116,9 +111,16 @@ win10-ltsc-unattend/
 1. 将 Windows 10 Enterprise LTSC 2021 ISO 放在脚本同目录，命名为 `Windows 10 Enterprise LTSC 2021.iso`
 2. 将需要的更新补丁下载到 `Updates\` 目录
 3. 将需要静默安装的软件安装包放入 `OEM\` 目录，并在 `software.cmd` 中添加安装命令
-4. 按需修改 `OnWimMounted.cmd` 中的 `VM_MODE` 变量
-5. 以管理员身份运行 `Start.cmd`
-6. 等待完成后，在 `ISO\` 目录中得到修改后的安装文件
+4. 以管理员身份运行 `Start.cmd`
+5. 等待完成后，在 `ISO\` 目录中得到修改后的安装文件
+
+### 虚拟机优化
+
+运行 `Start.cmd vm` 时额外会：
+
+- 离线修改：允许空密码远程登录，禁用无线电和蓝牙相关服务
+- 首次登录：切换高性能电源方案，关闭休眠和防火墙
+- 若存在 `VMwareTools\`：拷入镜像并在首次登录时静默安装
 
 ## 依赖
 
