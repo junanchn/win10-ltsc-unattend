@@ -43,6 +43,9 @@ exit /b
 :: Install Python
 python-3.12.10-amd64.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
 
+:: Install Everything
+Everything-Setup.exe /S -install-options "-no-app-data -enable-run-as-admin -install-efu-association -install-folder-context-menu -uninstall-run-on-system-startup -uninstall-service -uninstall-desktop-shortcut -uninstall-start-menu-shortcuts -uninstall-url-protocol"
+
 :: Install voidImageViewer
 voidImageViewer-1.0.0.15.x64.en-US-Setup.exe /S /install-options "/noappdata /nostartmenu"
 copy /y "%~dp0voidImageViewer.ini" "%ProgramFiles%\voidImageViewer\voidImageViewer.ini"
