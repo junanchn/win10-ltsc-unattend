@@ -105,6 +105,7 @@ echo --- Old System / Upgrade Remnants ---
 call :RmDir "C:\Windows.old"
 call :RmDir "C:\$Windows.~BT"
 call :RmDir "C:\$Windows.~WS"
+call :RmDir "C:\$WINDOWS.~LS"
 echo.
 
 echo --- Setup Leftovers + Driver Temps ---
@@ -180,6 +181,8 @@ call :MeasureBefore
 
 echo --- Temp Files ---
 call :CleanDir "C:\Windows\Temp"
+call :RmDir "C:\Windows\SystemTemp"
+call :RmDir "C:\Windows\CbsTemp"
 call :CleanDir "%TEMP%"
 for /D %%x in ("C:\Users\*") do (
     if exist "%%x\AppData\Local\Temp" call :CleanDir "%%x\AppData\Local\Temp"
@@ -329,6 +332,14 @@ echo.
 :: ==========================================
 echo === Phase 8: Final ===
 :: ==========================================
+
+echo --- OEM Directory ---
+:: Remove C:\OEM except cleanup.cmd
+if exist "C:\OEM\" (
+    for /d %%D in ("C:\OEM\*") do rd /s /q "%%D" 2>nul
+    for %%F in ("C:\OEM\*") do if /i not "%%~nxF"=="cleanup.cmd" del /f /q "%%F" 2>nul
+)
+echo.
 
 ipconfig /flushdns >nul 2>&1
 echo   DNS cache flushed
