@@ -282,6 +282,9 @@ reg add "HKU\Offline_DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer"
 :: ---- 开机自动打开小键盘 ----
 reg add "HKU\Offline_DEFAULT\Control Panel\Keyboard" /v InitialKeyboardIndicators /t REG_SZ /d "2" /f >nul
 
+:: ---- 禁用微软拼音"简体/繁体中文输入切换"热键 ----
+reg add "HKU\Offline_DEFAULT\Software\Microsoft\InputMethod\Settings\CHS" /v EnableSimplifiedTraditionalOutputSwitch /t REG_DWORD /d 0 /f
+
 reg unload "HKU\Offline_DEFAULT"
 echo   Default user hive: done.
 

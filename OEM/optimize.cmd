@@ -6,9 +6,6 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" 
 reg add "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9816078010000000 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d "0" /f
 
-:: 禁用微软拼音"简体/繁体中文输入切换"热键
-reg add "HKCU\SOFTWARE\Microsoft\InputMethod\Settings\CHS" /v EnableSimplifiedTraditionalOutputSwitch /t REG_DWORD /d 0 /f
-
 :: 删除 Edge 自动更新计划任务
 schtasks /delete /tn "MicrosoftEdgeUpdateTaskMachineCore" /f
 schtasks /delete /tn "MicrosoftEdgeUpdateTaskMachineUA" /f
