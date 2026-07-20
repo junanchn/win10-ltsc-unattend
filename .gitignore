@@ -1,0 +1,16 @@
+# 安装包 / 镜像 / 补丁
+*.iso
+*.msu
+*.exe
+*.msi
+
+# 构建产物
+/ISO/
+/W10UItemp/
+/W10UImount*/
+/Drivers/
+
+# 软件目录
+OEM/*/
+VMwareTools/*
+!VMwareTools/*.url
